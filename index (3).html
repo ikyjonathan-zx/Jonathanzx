@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rifky Jonathan Tambuwun | Personal Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #040b18;
+      --navy-mid: #0a1931;
+      --navy-card: rgba(11, 27, 54, 0.72);
+      --glass-white: rgba(255, 255, 255, 0.08);
+      --glass-white-strong: rgba(255, 255, 255, 0.14);
+      --silver-light: #f1f5f9;
+      --silver-mid: #cbd5e1;
+      --silver-metallic: #94a3b8;
+      --accent-ice: #38bdf8;
+      --border-silver: rgba(203, 213, 225, 0.28);
+      --text-primary: #ffffff;
+      --text-readable: #f1f5f9;
+      --text-muted: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 15% 15%, #112a54 0%, #071329 48%, #030812 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Particle Canvas */
+    #constellation-bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Ambient Metallic Glows */
+    .ambient-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      animation: orbDrift 14s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 380px;
+      height: 380px;
+      background: #1e40af;
+      top: -80px;
+      left: -80px;
+    }
+    .orb-2 {
+      width: 340px;
+      height: 340px;
+      background: #64748b;
+      bottom: -80px;
+      right: -60px;
+      animation-delay: -5s;
+    }
+
+    @keyframes orbDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(35px, 25px) scale(1.08); }
+    }
+
+    /* Top Metallic Navigation Bar */
+    header.navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 14, 30, 0.84);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-silver);
+      padding: 0.85rem 1.5rem;
+    }
+
+    .nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+    }
+
+    .brand-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 0 12px rgba(226, 232, 240, 0.45);
+    }
+
+    .brand-text {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 55%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      color: var(--silver-mid);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .nav-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 50%, #94a3b8 100%);
+      color: #061226;
+      font-weight: 700;
+      box-shadow: 0 4px 18px rgba(203, 213, 225, 0.35);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 10;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* 3-Page Architecture & Per-Page Animations */
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    /* Page 1 Animation: Smooth Metallic Rise & Unfold */
+    .page-section.active.anim-page-1 .stagger {
+      animation: pageOneReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Page 2 Animation: Horizontal Slide & Timeline Cascade */
+    .page-section.active.anim-page-2 .stagger {
+      animation: pageTwoSlide 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    /* Page 3 Animation: Scale & Frosted Glass Pop */
+    .page-section.active.anim-page-3 .stagger {
+      animation: pageThreeZoom 0.72s cubic-bezier(0.18, 0.89, 0.32, 1.15) both;
+    }
+
+    .stagger:nth-child(1) { animation-delay: 0.05s; }
+    .stagger:nth-child(2) { animation-delay: 0.15s; }
+    .stagger:nth-child(3) { animation-delay: 0.25s; }
+    .stagger:nth-child(4) { animation-delay: 0.35s; }
+    .stagger:nth-child(5) { animation-delay: 0.45s; }
+
+    @keyframes pageOneReveal {
+      0% { opacity: 0; transform: translateY(28px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes pageTwoSlide {
+      0% { opacity: 0; transform: translateX(-32px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pageThreeZoom {
+      0% { opacity: 0; transform: scale(0.93) translateY(18px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Frosted Navy & Transparent White Cards */
+    .glass-card {
+      background: linear-gradient(145deg, rgba(13, 33, 68, 0.82) 0%, rgba(7, 19, 41, 0.88) 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-silver);
+      border-radius: 22px;
+      padding: 2rem;
+      box-shadow: 0 18px 45px rgba(2, 6, 18, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      margin-bottom: 1.75rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(241, 245, 249, 0.52);
+      box-shadow: 0 22px 52px rgba(2, 8, 23, 0.78), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    /* Metallic Typography */
+    .metallic-title {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 45%, #94a3b8 80%, #f8fafc 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: silverShimmer 6s linear infinite;
+    }
+
+    @keyframes silverShimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .section-heading {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      letter-spacing: 0.02em;
+    }
+
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(203, 213, 225, 0.5), transparent);
+    }
+
+    /* Hero Section with Profile Photo */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2.25rem;
+      align-items: center;
+    }
+
+    .photo-frame-wrapper {
+      position: relative;
+      width: 240px;
+      height: 310px;
+      margin: 0 auto;
+      border-radius: 22px;
+      padding: 4px;
+      background: linear-gradient(135deg, #ffffff 0%, #94a3b8 40%, #1e3a8a 70%, #f8fafc 100%);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 28px rgba(203, 213, 225, 0.25);
+      animation: photoFloat 5.5s ease-in-out infinite;
+    }
+
+    @keyframes photoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .photo-frame-wrapper::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 26px;
+      border: 1px solid rgba(226, 232, 240, 0.35);
+      pointer-events: none;
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 18px;
+      display: block;
+      background-color: #0d2b6b;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(226, 232, 240, 0.35);
+      color: #f8fafc;
+      padding: 0.4rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-name {
+      font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.18;
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .meta-item {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 0.8rem 1rem;
+    }
+
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #cbd5e1;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .meta-value {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* All About Me Readability */
+    .about-prose p {
+      color: #f8fafc;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      margin-bottom: 1.15rem;
+      text-align: justify;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1.1rem 1.3rem;
+      border-radius: 14px;
+      border-left: 3px solid #cbd5e1;
+    }
+
+    .about-prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Scripture Cards */
+    .scripture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .scripture-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.04) 100%);
+      border: 1px solid rgba(226, 232, 240, 0.35);
+      border-radius: 18px;
+      padding: 1.4rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scripture-ref {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .scripture-text {
+      color: #f1f5f9;
+      font-size: 0.96rem;
+      font-style: italic;
+      line-height: 1.72;
+    }
+
+    /* Page 2: Timeline & Achievements */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid rgba(203, 213, 225, 0.4);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.35rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(6px);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.95rem;
+      top: 1.25rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffffff, #94a3b8);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    }
+
+    .timeline-year {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #061226;
+      background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.92rem;
+      color: #e2e8f0;
+    }
+
+    .award-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .award-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(15, 39, 82, 0.65));
+      border: 1px solid rgba(226, 232, 240, 0.35);
+      border-radius: 18px;
+      padding: 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .award-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .award-medal {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 55%, #64748b 100%);
+      color: #061226;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 6px 16px rgba(203, 213, 225, 0.35);
+    }
+
+    /* Page 3: Skills, Talents & Contact */
+    .chip-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .silver-chip {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(226, 232, 240, 0.35);
+      color: #ffffff;
+      padding: 0.65rem 1.15rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.28s ease;
+    }
+
+    .silver-chip:hover {
+      background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+      color: #061226;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(226, 232, 240, 0.3);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(226, 232, 240, 0.32);
+      border-radius: 18px;
+      padding: 1.35rem 1.5rem;
+      color: #ffffff;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+      transform: translateY(-4px);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffffff, #94a3b8);
+      color: #061226;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Bottom Page Switcher Controls */
+    .page-footer-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-metallic {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 55%, #94a3b8 100%);
+      color: #061226;
+      border: none;
+      padding: 0.78rem 1.5rem;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(203, 213, 225, 0.3);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-metallic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(255, 255, 255, 0.42);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid rgba(226, 232, 240, 0.4);
+      padding: 0.78rem 1.5rem;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    footer.site-footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 1.5rem;
+      color: #cbd5e1;
+      font-size: 0.86rem;
+      border-top: 1px solid rgba(203, 213, 225, 0.18);
+      background: rgba(4, 11, 24, 0.75);
+    }
+
+    @media (max-width: 780px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .photo-frame-wrapper {
+        width: 210px;
+        height: 270px;
+      }
+      .about-prose p {
+        text-align: left;
+      }
+      .nav-container {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="constellation-bg"></canvas>
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand" onclick="switchPage(1)">
+        <img src="83621.png" alt="Rifky Jonathan Tambuwun" class="brand-avatar" />
+        <span class="brand-text">RIFKY JONATHAN TAMBUWUN</span>
+      </div>
+      <nav class="nav-tabs" aria-label="Navigasi Halaman Profil">
+        <button class="nav-btn active" id="tab-1" onclick="switchPage(1)">01. Profil &amp; About</button>
+        <button class="nav-btn" id="tab-2" onclick="switchPage(2)">02. Perjalanan &amp; Prestasi</button>
+        <button class="nav-btn" id="tab-3" onclick="switchPage(3)">03. Minat &amp; Kontak</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== PAGE 1: PROFIL & ALL ABOUT ME ==================== -->
+    <section id="page-1" class="page-section active anim-page-1">
+      <div class="glass-card stagger">
+        <div class="hero-grid">
+          <div class="photo-frame-wrapper">
+            <img src="83621.png" alt="Foto Profil Rifky Jonathan Tambuwun" class="profile-photo" />
+          </div>
+          <div>
+            <div class="badge-pill">✦ Personal Portfolio &amp; Profile</div>
+            <h1 class="hero-name metallic-title">Rifky Jonathan Tambuwun</h1>
+            <p class="hero-subtitle">Mahasiswa S1 Manajemen • Wakil Ketua Pelayanan Siswa Kristen Kota Tomohon</p>
+            <div class="meta-grid">
+              <div class="meta-item">
+                <div class="meta-label">Tempat, Tanggal Lahir</div>
+                <div class="meta-value">Tomohon, 04 September 2007</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Domisili</div>
+                <div class="meta-value">Sonder, Kab. Minahasa, Sulawesi Utara</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Pendidikan Saat Ini</div>
+                <div class="meta-value">Universitas Sam Ratulangi Manado (S1 Manajemen)</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-label">Amanah Organisasi</div>
+                <div class="meta-value">Wakil Ketua PSK Kota Tomohon (2026–Sekarang)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card stagger">
+        <h2 class="section-heading metallic-title">All about me</h2>
+        <div class="about-prose">
+          <p>
+            Halo! Perkenalkan, saya Rifky Jonathan Tambuwun, lahir di Tomohon pada 04 September 2007. Sebagai anak muda yang tumbuh di Tanah Minahasa, saya selalu percaya bahwa masa muda adalah waktu terbaik untuk terus belajar, aktif bertumbuh, dan memberikan kontribusi positif bagi lingkungan sekitar. Perjalanan saya dalam dunia organisasi mulai terasah secara nyata saat dipercaya mengemban tugas sebagai Koordinator Bidang Pelayanan SMA Negeri 1 Tomohon masa bakti 2024–2025. Dari pengalaman di lingkungan sekolah tersebut, saya belajar banyak tentang kerja sama tim, kedisiplinan, serta bagaimana merancang kegiatan yang bermanfaat bagi sesama pelajar.
+          </p>
+          <p>
+            Langkah tersebut kemudian membawa saya bertumbuh ke ruang lingkup yang lebih luas di tingkat kota. Pada masa bakti 2025–2026, saya dipercaya menjabat sebagai Koordinator Bidang Pelayanan Umum dan Media Center Pelayanan Siswa Kristen Kota Tomohon, di mana saya banyak terlibat dalam koordinasi program pelayanan sekaligus pengelolaan informasi dan media komunikasi. Kepercayaan serta proses belajar yang terus berjalan akhirnya mengantarkan saya pada tanggung jawab yang lebih besar, yaitu mengemban amanah sebagai Wakil Ketua Pelayanan Siswa Kristen Kota Tomohon dari tahun 2026 hingga saat ini. Peran ini melatih saya untuk semakin sigap dalam memimpin, membangun komunikasi yang baik dengan banyak orang, dan memastikan setiap rencana berjalan dengan tertata.
+          </p>
+          <p>
+            Di samping kesibukan berorganisasi dan melayani, saya juga memiliki ketertarikan yang besar di bidang ilmu pengetahuan dan eksplorasi akademik. Rasa ingin tahu serta ketekunan dalam belajar membawa saya meraih Honorable Mention 1 (Peringkat 4) Olimpiade Sains Nasional Tingkat Kabupaten/Kota Bidang Biologi pada tahun 2023, dan kembali berprestasi dengan meraih Honorable Mention 2 (Peringkat 5) Olimpiade Sains Nasional Tingkat Kabupaten/Kota Bidang Astronomi pada tahun 2024. Bagi saya, perpaduan antara pengalaman organisasi, pengelolaan media center, dan ketertarikan pada dunia sains membentuk cara berpikir yang seimbang—menjadikan saya pribadi yang teliti terhadap detail, komunikatif, terbuka pada hal-hal baru, dan selalu antusias menghadapi setiap tantangan ke depan.
+          </p>
+        </div>
+      </div>
+
+      <div class="glass-card stagger">
+        <h2 class="section-heading metallic-title">Ayat Pegangan Hidup</h2>
+        <div class="scripture-grid">
+          <div class="scripture-card">
+            <div class="scripture-ref">✦ Kolose 3:23</div>
+            <p class="scripture-text">
+              &ldquo;Apapun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia.&rdquo;
+            </p>
+          </div>
+          <div class="scripture-card">
+            <div class="scripture-ref">✦ Amsal 3:5–6</div>
+            <p class="scripture-text">
+              &ldquo;Percayalah kepada TUHAN dengan segenap hatimu, dan janganlah bersandar kepada pengertianmu sendiri. Akuilah Dia dalam segala lakumu, maka Ia akan meluruskan jalanmu.&rdquo;
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer-nav stagger">
+        <span>Halaman 1 dari 3</span>
+        <button class="btn-metallic" onclick="switchPage(2)">Lanjut ke Perjalanan &amp; Prestasi →</button>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 2: PENDIDIKAN, ORGANISASI & PRESTASI ==================== -->
+    <section id="page-2" class="page-section">
+      <div class="two-col-grid stagger">
+        <div class="glass-card">
+          <h2 class="section-heading metallic-title">Riwayat Pendidikan</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-year">Sekarang</span>
+              <div class="timeline-title">Universitas Sam Ratulangi Manado</div>
+              <div class="timeline-desc">Fakultas Ekonomi dan Bisnis • Program Studi S1 Manajemen (Mahasiswa Manajemen)</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">SMA</span>
+              <div class="timeline-title">SMA Negeri 1 Tomohon</div>
+              <div class="timeline-desc">Pendidikan Menengah Atas</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">SMP</span>
+              <div class="timeline-title">SMP Negeri 1 Sonder</div>
+              <div class="timeline-desc">Pendidikan Menengah Pertama</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">SD</span>
+              <div class="timeline-title">SD GMIM Sendangan Sonder</div>
+              <div class="timeline-desc">Pendidikan Dasar</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">TK / PAUD</span>
+              <div class="timeline-title">TK/PAUD GMIM Imanuel Sendangan Sonder</div>
+              <div class="timeline-desc">Pendidikan Anak Usia Dini</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h2 class="section-heading metallic-title">Pengalaman Organisasi</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-year">2026 – Sekarang</span>
+              <div class="timeline-title">Wakil Ketua Pelayanan Siswa Kristen Kota Tomohon</div>
+              <div class="timeline-desc">Memimpin koordinasi program pelayanan siswa tingkat kota, komunikasi lintas sekolah, serta tata kelola organisasi.</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">2025 – 2026</span>
+              <div class="timeline-title">Koordinator Bidang Pelayanan Umum &amp; Media Center PSK Kota Tomohon</div>
+              <div class="timeline-desc">Mengelola program pelayanan umum serta pusat informasi dan publikasi media komunikasi tingkat kota.</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">2024 – 2025</span>
+              <div class="timeline-title">Koordinator Bidang Pelayanan SMA Negeri 1 Tomohon</div>
+              <div class="timeline-desc">Merancang dan mengoordinasikan kegiatan kerohanian serta pelayanan bagi sesama pelajar.</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">2023 – 2024</span>
+              <div class="timeline-title">Anggota OSIS SMA Negeri 1 Tomohon</div>
+              <div class="timeline-desc">Aktif berkontribusi dalam kepengurusan organisasi kesiswaan tingkat SMA.</div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">2019 – 2020</span>
+              <div class="timeline-title">Anggota OSIS SMP Negeri 1 Sonder</div>
+              <div class="timeline-desc">Memulai fondasi kepemimpinan dan kerja sama tim di lingkungan sekolah menengah pertama.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card stagger">
+        <h2 class="section-heading metallic-title">Prestasi Akademik</h2>
+        <div class="award-grid">
+          <div class="award-card">
+            <div class="award-medal">HM 1</div>
+            <div>
+              <span class="timeline-year">Tahun 2023</span>
+              <div class="timeline-title">Honorable Mention 1 (Juara 4) OSN-K Bidang Biologi</div>
+              <div class="timeline-desc">Olimpiade Sains Nasional Tingkat Kabupaten/Kota Bidang Biologi.</div>
+            </div>
+          </div>
+          <div class="award-card">
+            <div class="award-medal">HM 2</div>
+            <div>
+              <span class="timeline-year">Tahun 2024</span>
+              <div class="timeline-title">Honorable Mention 2 (Juara 5) OSN-K Bidang Astronomi</div>
+              <div class="timeline-desc">Olimpiade Sains Nasional Tingkat Kabupaten/Kota Bidang Astronomi.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer-nav stagger">
+        <button class="btn-outline" onclick="switchPage(1)">← Kembali ke Profil</button>
+        <span>Halaman 2 dari 3</span>
+        <button class="btn-metallic" onclick="switchPage(3)">Lanjut ke Minat &amp; Kontak →</button>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 3: MINAT, BAKAT & HUBUNGI SAYA ==================== -->
+    <section id="page-3" class="page-section">
+      <div class="two-col-grid stagger">
+        <div class="glass-card">
+          <h2 class="section-heading metallic-title">Minat &amp; Keahlian</h2>
+          <div class="chip-container">
+            <span class="silver-chip">✦ Pengembangan Diri</span>
+            <span class="silver-chip">✦ Kreativitas</span>
+            <span class="silver-chip">✦ Teknologi Digital</span>
+            <span class="silver-chip">✦ Komunikasi &amp; Kolaborasi</span>
+            <span class="silver-chip">✦ Public Speaking</span>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h2 class="section-heading metallic-title">Minat &amp; Bakat</h2>
+          <div class="chip-container">
+            <span class="silver-chip">♫ Rebana</span>
+            <span class="silver-chip">⚑ Banners</span>
+            <span class="silver-chip">♪ Menyanyi</span>
+            <span class="silver-chip">⚙ Bidang Teknologi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card stagger">
+        <h2 class="section-heading metallic-title">Hubungi Saya</h2>
+        <p style="color: #e2e8f0; margin-bottom: 1.35rem; font-size: 0.98rem;">
+          Terbuka untuk diskusi, kolaborasi organisasi, pelayanan, maupun proyek kreatif dan teknologi digital. Silakan hubungi melalui kanal berikut:
+        </p>
+        <div class="contact-grid">
+          <a href="https://instagram.com/joonazxt." target="_blank" rel="noopener noreferrer" class="contact-card">
+            <div class="contact-icon">IG</div>
+            <div>
+              <div class="meta-label">Instagram</div>
+              <div class="meta-value">@joonazxt.</div>
+            </div>
+          </a>
+          <a href="mailto:rifkytambuwun@gmail.com" class="contact-card">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div class="meta-label">Email</div>
+              <div class="meta-value">rifkytambuwun@gmail.com</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="page-footer-nav stagger">
+        <button class="btn-outline" onclick="switchPage(2)">← Kembali ke Perjalanan</button>
+        <span>Halaman 3 dari 3</span>
+        <button class="btn-metallic" onclick="switchPage(1)">Kembali ke Halaman Awal ↺</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Rifky Jonathan Tambuwun • Sonder, Minahasa, Sulawesi Utara
+  </footer>
+
+  <script>
+    // 3-Page Switcher with Distinct Per-Page Entry Animations
+    function switchPage(pageNum) {
+      const pages = [1, 2, 3];
+      pages.forEach(num => {
+        const sec = document.getElementById('page-' + num);
+        const tab = document.getElementById('tab-' + num);
+        sec.classList.remove('active', 'anim-page-1', 'anim-page-2', 'anim-page-3');
+        tab.classList.remove('active');
+      });
+
+      const targetSec = document.getElementById('page-' + pageNum);
+      const targetTab = document.getElementById('tab-' + pageNum);
+
+      // Force reflow so animation replays cleanly every switch
+      void targetSec.offsetWidth;
+
+      targetSec.classList.add('active', 'anim-page-' + pageNum);
+      targetTab.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Silver Metallic Constellation Particle Background
+    const canvas = document.getElementById('constellation-bg');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
+
+    function initCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      const count = Math.min(75, Math.floor((width * height) / 16000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        radius: Math.random() * 1.9 + 0.8
+      }));
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(226, 232, 240, 0.65)';
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = p.x - q.x;
+          const dy = p.y - q.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 135) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(203, 213, 225, ${0.22 * (1 - dist / 135)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+    animateParticles();
+  </script>
+</body>
+</html>
